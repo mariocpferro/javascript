@@ -27,14 +27,31 @@ function adicionaFilme(filme){
                 reject(new Error('Nome inválido!'))
             } else{
                 filmes.push(filme);
-                resolve();
+                resolve(filme);
             }
         }, 1000);
     }
     return new Promise(promise);
 }
 
-    adicionaFilme({nome: 'O contratempo', genero: 'Suspense'})
+async function funcaoAsync(){
+    try {
+        const oContratempo = await adicionaFilme({nome: 'O contratempo', genero: 'Suspense'});
+        console.log(oContratempo);
+        await adicionaFilme({nome: 'Velozes e Furiosos 1',      genero:'Ação'});
+        await adicionaFilme({nome: 'Velozes e Furiosos 2',      genero:'Ação'});
+        await adicionaFilme({nome: '',      genero:'Ação'});
+        await adicionaFilme({nome: 'Velozes e Furiosos 4',      genero:'Ação'});
+        exibeFilmes();
+    } catch (erro){
+        console.error(erro);
+    }
+    
+}
+
+funcaoAsync();
+
+    /*adicionaFilme({nome: 'O contratempo', genero: 'Suspense'})
     .then(() => {
         return adicionaFilme({nome: 'Velozes e Furiosos 1', genero:'Ação'})
     })
@@ -50,4 +67,4 @@ function adicionaFilme(filme){
     .then(() => {
         return adicionaFilme({nome:'', genero:'Ação'})
     })
-    .then(exibeFilmes);
+    .then(exibeFilmes);*/
